@@ -1,8 +1,9 @@
 boats = "boats"
 slips = "slips"
 
-url = "https://hw8-dickinsj.uc.r.appspot.com"
+#url = "https://hw8-dickinsj.uc.r.appspot.com"
 #url = "http://127.0.0.1:8080"
+url = "[this-url]"
 
 #attribute list for each type
 boatAtt = ["name", "type", "length"]
