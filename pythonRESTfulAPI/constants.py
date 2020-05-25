@@ -1,7 +1,8 @@
 boats = "boats"
 slips = "slips"
 
-url = "https://dickinsj-assign-3.uc.r.appspot.com/"
+url = "https://hw8-dickinsj.uc.r.appspot.com"
+#url = "http://127.0.0.1:8080"
 
 #attribute list for each type
 boatAtt = ["name", "type", "length"]
@@ -36,4 +37,4 @@ def invalidSlipRequest(request):
 def addTags(results):
     for e in results:
         e["id"] = str(e.key.id)
-        e["self"] = url + "boats/" + str(e.key.id)
+        e["self"] = url + "/boats/" + str(e.key.id)

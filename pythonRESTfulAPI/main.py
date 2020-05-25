@@ -2,11 +2,14 @@ from google.cloud import datastore
 from flask import Flask, request
 import json
 import constants
-
+import os
 
 app = Flask(__name__)
 client = datastore.Client()
-
+if os.getenv('PORT') == None:
+    PORT = 8081
+else:
+    PORT = os.getenv('PORT')
 
 
 #*************Main Page*************
@@ -32,7 +35,7 @@ def boats_get_post():
         new_boat = datastore.entity.Entity(key=client.key(constants.boats))
         new_boat.update({"name": content["name"], "type": content["type"], "length": content["length"]})
         client.put(new_boat)
-        new_boat.update({"id": str(new_boat.key.id), "self": constants.url + "boats/" + str(new_boat.key.id)})
+        new_boat.update({"id": str(new_boat.key.id), "self": constants.url + "/boats/" + str(new_boat.key.id)})
         return (json.dumps(new_boat), 201)
 
     elif request.method == "GET":
@@ -66,7 +69,7 @@ def boat_get_put_delete(id):
             return (json.dumps(constants.badRequest), 400)
         boat.update({"name": content["name"], "type": content["type"], "length": content["length"]})
         client.put(boat)
-        boat.update({"id": id, "self": constants.url + "boats/" + id})
+        boat.update({"id": id, "self": constants.url + "/boats/" + id})
         return (json.dumps(boat), 200)
 
     elif request.method == 'DELETE':
@@ -84,7 +87,7 @@ def boat_get_put_delete(id):
         return ('',204)
 
     elif request.method == 'GET':
-        boat.update({"id": id, "self": constants.url + "boats/" + id})
+        boat.update({"id": id, "self": constants.url + "/boats/" + id})
         return json.dumps(boat)
 
     else:
@@ -110,7 +113,7 @@ def slips_get_post():
         new_slip = datastore.entity.Entity(key=client.key(constants.slips))
         new_slip.update({"number": content["number"], "current_boat": None})
         client.put(new_slip)
-        new_slip.update({"id": str(new_slip.key.id), "self": constants.url + "slips/" + str(new_slip.key.id)})
+        new_slip.update({"id": str(new_slip.key.id), "self": constants.url + "/slips/" + str(new_slip.key.id)})
         return (json.dumps(new_slip), 201)
 
     elif request.method == "GET":
@@ -142,7 +145,7 @@ def slip_get_delete(id):
         return ('',204)
 
     elif request.method == 'GET':
-        slip.update({"id": id, "self": constants.url + "slips/" + id})
+        slip.update({"id": id, "self": constants.url + "/slips/" + id})
         return json.dumps(slip)
 
     else:
@@ -201,4 +204,4 @@ def slip_boat_put_delete(sid, bid):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='127.0.0.1', port=PORT, debug=True)
