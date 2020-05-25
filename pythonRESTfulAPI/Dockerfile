@@ -1,9 +1,9 @@
 FROM python:3
 WORKDIR /usr/src/app
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 COPY . .
-ENV PORT=9000
 ENV GOOGLE_APPLICATION_CREDENTIALS='./hw8-dickinsj-user.json'
+ENV PORT=8000
 EXPOSE ${PORT}
 CMD [ "python", "./main.py"]

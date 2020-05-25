@@ -2,14 +2,15 @@ from google.cloud import datastore
 from flask import Flask, request
 import json
 import constants
-import os
+#import os
 
 app = Flask(__name__)
 client = datastore.Client()
-if os.getenv('PORT') == None:
-    PORT = 9000
-else:
-    PORT = os.getenv('PORT')
+
+# if os.getenv('PORT') == None:
+#     PORT = 8000
+# else:
+#     PORT = os.getenv('PORT')
 
 
 #*************Main Page*************
@@ -200,8 +201,7 @@ def slip_boat_put_delete(sid, bid):
 
     else:
         return 'Method not recognized, please use PUT or DELETE'
-1
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=PORT, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
